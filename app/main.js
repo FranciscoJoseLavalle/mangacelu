@@ -4,6 +4,8 @@ const carrito = document.querySelector('.carrito');
 const carritoTitle = document.querySelector('.carritoImg');
 const contadorCont = document.querySelector('.contador');
 const vaciar = document.querySelector('.vaciar')
+const select = document.querySelector('#select');
+const options = document.querySelectorAll('option');
 
 // Productos del carrito
 let productos = [];
@@ -36,6 +38,7 @@ class ProductosCarrito {
   }
 }
 
+// EVENTOS
 document.addEventListener('DOMContentLoaded', () => {
   productos = JSON.parse(localStorage.getItem('carrito')) || [];
   escribirHTML();
@@ -50,11 +53,16 @@ carritoTitle.addEventListener('click', () => {
 // Recibir valor del input
 input.addEventListener('input', () => {
   let valor = input.value.toLowerCase();
-
   cont.textContent = '';
   if (valor == '') {
     escribirHTML();
+    options.forEach(option => {
+      option.disabled = false;
+    })
   } else {
+    options.forEach(option => {
+      option.disabled = true;
+    })
     mangas.forEach(element => {
       if (element.nombre.toLowerCase().indexOf(valor) !== -1) {
         hacerHTML(element);
@@ -63,6 +71,24 @@ input.addEventListener('input', () => {
   }
 })
 
+select.addEventListener('change', () => {
+  if (select.value == 'todos') {
+    cont.textContent = '';
+    mangas.forEach(element => hacerHTML(element))
+  } else if (select.value == 'menor') {
+    cont.textContent = '';
+    let mangasFiltrados = [...mangas];
+    mangasFiltrados.sort((a,b) => a.precio - b.precio);
+    mangasFiltrados.forEach(element => hacerHTML(element))
+  } else if (select.value == 'mayor') {
+    cont.textContent = '';
+    let mangasFiltrados = [...mangas];
+    mangasFiltrados.sort((a,b) => b.precio - a.precio);
+    mangasFiltrados.forEach(element => hacerHTML(element))
+  }
+})
+
+// FUNCIONES
 function escribirHTML() {
   cont.textContent = '';
   mangas.forEach(element => hacerHTML(element))

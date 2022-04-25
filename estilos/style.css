@@ -45,7 +45,8 @@ button, .carritoImg, .btn {
   background-color: #fff;
 }
 .cargado {
-  background: #f84;
+  background: #666;
+  transition: background .3s;
 }
 /* ----------Fin Globales---------- */
 
@@ -75,9 +76,9 @@ button, .carritoImg, .btn {
 }
 .header__div-carrito img {
   width: 3.5rem;
-  background: #fff;
-  border-radius: 50%;
-  padding: .15rem;
+  margin: .2rem;
+  border-radius: 1rem;
+  padding: .5rem;
 }
 .contadorTexto {
   display: flex;
@@ -114,7 +115,7 @@ button, .carritoImg, .btn {
   align-items: center;
 }
 .vaciarCont {
-  text-align: center;
+  text-align: end;
   padding: 1rem;
 }
 .vaciar {
@@ -141,6 +142,14 @@ button, .carritoImg, .btn {
   padding: 1rem;
 }
 input {
+  padding: .5rem;
+}
+.selectCont {
+  text-align: center;
+}
+select {
+  margin-bottom: 1rem;
+  outline: none;
   padding: .5rem;
 }
 
