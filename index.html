@@ -1,53 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>HTML</title>
-  
-  <!-- HTML -->
-  
-
-  <!-- Custom Styles -->
-  <link rel="stylesheet" href="style.css">
+  <title>MangaStore</title>
+  <link rel="stylesheet" href="./estilos/style.css">
 </head>
 
 <body>
-  <header>
-    <div class="headerDiv">
-      <h1>Mangas</h1>
-      <div class="carritoCont">
-        <img src="./carrito.png" alt="carrito" class="carritoImg">
+  <header class="header">
+    <div class="header__div">
+      <a href="index.html"><h1>Mangas</h1></a>
+      <div class="header__div-carrito">
+        <img src="./img/carrito.webp" alt="carrito" class="carritoImg">
         <div class="contador">
           <p class="contadorTexto">0</p>
         </div>
       </div>
     </div>
-    <p class="montoFinal">Monto total: $0</p>
+    <p class="montoFinal">Total: $0</p>
   </header>
-  
-  <div class="carrito ocultar">
-    
-  </div>
-  <div class="vaciarCont">
-    <button class="vaciar">Vaciar Carrito</button>
-  </div>
-  
-  <main>
-  <div class="inputCont">
-    <input type="text" placeholder="Buscador...">
-  </div>
-  <div class="cont">
-      
-  </div>
+  <section>
+    <div class="carrito ocultar"></div>
+    <div class="vaciarCont"><button class="vaciar">Vaciar Carrito</button></div>
+  </section>
+
+  <main class="main">
+    <div class="inputCont">
+      <input type="text" placeholder="Buscador...">
+    </div>
+    <div class="cont"></div>
   </main>
-  
+
   <footer>
-    <h1>Mangas</h1>
+    <a href="index.html"><h1>Mangas</h1></a>
   </footer>
   <!-- Project -->
-  <script src="main.js"></script>
+  <script src="./app/main.js"></script>
 </body>
+
 </html>
