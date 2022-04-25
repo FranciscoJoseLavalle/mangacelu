@@ -11,7 +11,6 @@ Fuentes */
   text-decoration: none;
 }
 body {
-    font-size: 15pt;
     background: linear-gradient(to bottom, #fff, #eee, #ddd);
 }
 h1 {
@@ -73,6 +72,7 @@ button, .carritoImg, .btn {
   justify-content: center;
   align-items: center;
   gap: .5rem;
+  position: relative;
 }
 .header__div-carrito img {
   width: 3.5rem;
@@ -89,6 +89,28 @@ button, .carritoImg, .btn {
   height: 2rem;
   background: #f84;
   color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+/* ----------Fin Header---------- */
+
+
+/* ----------Inicio Carrito---------- */
+.carritoSection {
+  position: relative;
+  z-index: 5;
+}
+.carrito {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+table {
+  background: #333;
 }
 .carrito img {
   width: 5rem;
@@ -96,34 +118,18 @@ button, .carritoImg, .btn {
 .carrito p {
   color: #fff;
 }
-/* ----------Fin Header---------- */
-
-
-/* ----------Inicio Carrito---------- */
-.carrito {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: .5rem;
-}
-.carrito div {
-  background: #333;
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: .5rem 30rem;
-  align-items: center;
-}
 .vaciarCont {
-  text-align: end;
+  text-align: center;
   padding: 1rem;
+  background-color: #0009;
+  backdrop-filter: blur(.1rem);
 }
 .vaciar {
   padding: .5rem;
   background: transparent;
   border-radius: .3rem;
-  border: solid #f53 0.08rem;
-  color: #f53;
+  border: solid #fff 0.08rem;
+  color: #fff;
 }
 .ocultar {
   display: none;
@@ -153,7 +159,7 @@ select {
   padding: .5rem;
 }
 
-/* Proyectos en DOM */
+/* Mangas en DOM */
 .cont {
   display: flex;
   flex-wrap: wrap;
@@ -167,21 +173,26 @@ select {
   height: 100%;
   object-fit: cover;
   object-position: center;
+  /* border-radius: 50%; */
 }
 .contDiv {
-  border: .1rem solid #000;
+  border: .1rem solid #666;
   display: flex;
   width: 15rem;
   flex-direction: column;
-  gap: .1rem;
   border-radius: .2rem;
-  padding: .3rem;
   background: #fff;
   text-align: center;
+  box-shadow: #999 1px 1px 5px .5px;
+  transition: transform .2s;
 }
-.contDiv div {
+.contDiv:hover {
+  transform: scale(1.05);
+}
+.contImg {
   width: 100%;
   height: 15rem;
+  z-index: 3;
 }
 .contDiv button {
   padding: .5rem;
@@ -189,6 +200,12 @@ select {
   color: #359;
   border: #359 solid .08rem;
   border-radius: .2rem;
+  margin: 0 .3rem .3rem .3rem;
+}
+.contenedorCards {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
 }
 /* ----------Fin Main---------- */
 
@@ -212,7 +229,7 @@ footer {
   .contDiv {
     width: 10rem;
   }
-  .contDiv div {
+  .contImg {
     height: 10rem;
   }
 }
@@ -220,35 +237,7 @@ footer {
   .contDiv {
     width: 8rem;
   }
-  .contDiv div {
+  .contImg {
     height: 8rem;
-  }
-}
-@media all and (max-width: 1570px) {
-  .carrito div {
-    padding: .5rem 15rem;
-  }
-}
-@media all and (max-width: 1100px) {
-  .carrito div {
-    padding: .5rem 7rem;
-  }
-}
-@media all and (max-width: 840px) {
-  .carrito div {
-    padding: .5rem 3rem;
-  }
-}
-@media all and (max-width: 640px) {
-  .carrito div {
-    padding: .5rem 1rem;
-  }
-}
-@media all and (max-width: 360px) {
-  .carrito div {
-    justify-content: space-evenly;
-    padding: .5rem;
-    flex-wrap: wrap;
-    gap: .2rem;
   }
 }

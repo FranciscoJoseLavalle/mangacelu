@@ -2,6 +2,7 @@ const cont = document.querySelector('.cont');
 const input = document.querySelector('input');
 const carrito = document.querySelector('.carrito');
 const carritoTitle = document.querySelector('.carritoImg');
+const carritoBody = document.querySelector('.carritoBody');
 const contadorCont = document.querySelector('.contador');
 const vaciar = document.querySelector('.vaciar')
 const select = document.querySelector('#select');
@@ -12,7 +13,7 @@ let productos = [];
 
 // Mangas
 let mangas = [
-  { nombre: 'Bersek', precio: 640, imagen: './img/bersek.webp' },
+  { nombre: 'Berserk', precio: 640, imagen: './img/bersek.webp' },
   { nombre: 'Boruto', precio: 750, imagen: './img/boruto.webp' },
   { nombre: 'Naruto', precio: 270, imagen: './img/naruto.webp' },
   { nombre: 'Nanatsu no Taizai', precio: 730, imagen: './img/nnt.webp' },
@@ -96,6 +97,7 @@ function escribirHTML() {
 // Crear el HTML
 function hacerHTML(element) {
   const div = document.createElement('div');
+  const contenedor = document.createElement('div');
   const p = document.createElement('h3');
   const p2 = document.createElement('p');
   const img = document.createElement('img');
@@ -107,14 +109,18 @@ function hacerHTML(element) {
   btn.textContent = 'Añadir';
   p2.textContent = `$${element.precio}`;
 
+  contenedor.classList.add('contenedorCards')
+  contImg.classList.add('contImg');
   div.classList.add('contDiv');
 
 
   contImg.append(img);
-  div.append(p);
   div.append(contImg);
-  div.append(p2);
-  div.append(btn);
+  contenedor.append(p);
+  contenedor.append(p2);
+  contenedor.append(btn);
+  div.append(contenedor);
+
 
 
   btn.onclick = () => {
@@ -131,7 +137,7 @@ function hacerHTML(element) {
 function agregarCarrito() {
   const contador = document.querySelector('.contadorTexto');
   contador.textContent = 0;
-  carrito.textContent = '';
+  carritoBody.textContent = '';
 
   if (productos != '') {
     carritoTitle.classList.add('cargado');
@@ -140,7 +146,7 @@ function agregarCarrito() {
     }
   } else {
     carritoTitle.classList.remove('cargado');
-    carrito.textContent = 'Carrito vacío...'
+    carritoBody.textContent = 'Carrito vacío...'
   }
   contadorCont.textContent = ''
   contadorCont.append(contador);
@@ -148,24 +154,44 @@ function agregarCarrito() {
 
   productos.forEach(element => {
     let id = element.id;
-    const container = document.createElement('div');
-    const nombre = document.createElement('p');
-    nombre.textContent = element.nombre;
-    const img = document.createElement('img');
-    img.src = element.imagen;
-    const btn = document.createElement('p');
+    // const container = document.createElement('div');
+    // const nombre = document.createElement('p');
+    // nombre.textContent = element.nombre;
+    // const img = document.createElement('img');
+    // img.src = element.imagen;
+    // const btn = document.createElement('p');
+    // btn.textContent = 'X';
+    // btn.classList.add('btn');
+    // const precio = document.createElement('p');
+    // precio.textContent = `$${element.precio}`;
+
+    // container.append(img);
+    // container.append(nombre);
+    // container.append(precio);
+    // container.append(btn);
+
+    // carrito.append(container);
+
+    const contenedorCarrito = document.createElement('tr');
+    const imagenTabla = document.createElement('td');
+    const imagen = document.createElement('img');
+    const tituloTabla = document.createElement('td');
+    const precioTabla = document.createElement('td');
+    const btn = document.createElement('td');
     btn.textContent = 'X';
     btn.classList.add('btn');
-    const precio = document.createElement('p');
-    precio.textContent = `$${element.precio}`;
+    imagenTabla.classList.add('imgContainer');
 
-    container.append(img);
-    container.append(nombre);
-    container.append(precio);
-    container.append(btn);
+    tituloTabla.textContent = element.nombre;
+    precioTabla.textContent = element.precio;
+    imagenTabla.append(imagen);
+    imagen.src = element.imagen;
+    contenedorCarrito.append(imagenTabla);
+    contenedorCarrito.append(tituloTabla);
+    contenedorCarrito.append(precioTabla);
+    contenedorCarrito.append(btn);
 
-    carrito.append(container);
-
+    carritoBody.append(contenedorCarrito);
     btn.onclick = () => {
       productos = productos.filter(elements => elements.id !== id);
       agregarCarrito();
