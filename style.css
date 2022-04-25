@@ -7,9 +7,25 @@ body {
     font-size: 15pt;
     background: linear-gradient(to bottom, #fff, #eee, #ddd);
 }
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  background: #333;
+  padding: 1rem;
+  color: #fff;
+}
+.headerDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .2rem;
+}
 h1 {
   text-align: center;
-  margin: 1rem 0;
+  text-transform: uppercase;
 }
 .inputCont {
   text-align: center;
@@ -26,7 +42,7 @@ input {
   gap: 1rem;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10rem;
+  margin-bottom: 7rem;
 }
 .contDiv {
   border: .1rem solid #000;
@@ -58,9 +74,11 @@ input {
   object-fit: cover;
   object-position: center;
 }
-h2 {
-  padding: 0 1rem;
-  border-radius: .5rem;
+.carritoCont img {
+  width: 3rem;
+  background: #fff;
+  border-radius: 50%;
+  padding: .5rem;
 }
 .cargado {
   background: #f84;
@@ -78,11 +96,22 @@ h2 {
   gap: .5rem;
 }
 .carrito div {
-  background: #444;
+  background: #333;
   padding: .5rem;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+}
+.vaciarCont {
+  text-align: center;
+  padding: 1rem;
+}
+.vaciar {
+  padding: .5rem;
+  background: transparent;
+  border-radius: .3rem;
+  border: solid #f53 0.08rem;
+  color: #f53;
 }
 .contadorTexto {
   display: flex;
@@ -102,4 +131,10 @@ h2 {
 }
 .ocultar {
   display: none;
+}
+
+footer {
+  background: #333;
+  color: #fff;
+  padding: 3rem;
 }

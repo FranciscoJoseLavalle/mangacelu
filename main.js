@@ -1,8 +1,9 @@
 const cont = document.querySelector('.cont');
 const input = document.querySelector('input');
 const carrito = document.querySelector('.carrito');
-const carritoTitle = document.querySelector('h2');
+const carritoTitle = document.querySelector('.carritoImg');
 const contadorCont = document.querySelector('.contador');
+const vaciar = document.querySelector('.vaciar')
 
 // Productos del carrito
 let productos = [];
@@ -93,6 +94,7 @@ function hacerHTML(element) {
 function agregarCarrito() {
   const contador = document.querySelector('.contadorTexto');
   contador.textContent = 0;
+  carrito.textContent = '';
   
       if (productos != '') {
         carritoTitle.classList.add('cargado');
@@ -101,11 +103,12 @@ function agregarCarrito() {
         }
       } else {
         carritoTitle.classList.remove('cargado');
+        carrito.textContent = 'Carrito vacío...'
       }
       contadorCont.textContent = ''
       contadorCont.append(contador);
       
-      carrito.textContent = '';
+      
       productos.forEach(element => {
       let id = element.id;
       const container = document.createElement('div');
@@ -146,4 +149,10 @@ function sumarPrecio() {
   p.textContent = `Monto total: $${monto}`;
   
   montoFinal.append(p);
+}
+
+// Vaciar carrito
+vaciar.onclick = () => {
+  productos = [];
+  agregarCarrito();
 }
