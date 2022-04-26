@@ -59,6 +59,8 @@ button, .carritoImg, .btn {
   background: #333;
   padding: 1rem;
   color: #fff;
+  box-shadow: #777 1px 1px 10px 5px;
+  user-select: none;
 }
 .header__div {
   display: flex;
@@ -69,9 +71,10 @@ button, .carritoImg, .btn {
 }
 .header__div-carrito {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: .5rem;
+  gap: .1rem;
   position: relative;
 }
 .header__div-carrito img {
@@ -100,6 +103,7 @@ button, .carritoImg, .btn {
 .carritoSection {
   position: relative;
   z-index: 5;
+  user-select: none;
 }
 .carrito {
   display: flex;
@@ -111,6 +115,10 @@ button, .carritoImg, .btn {
 }
 table {
   background: #333;
+  padding: .5rem;
+}
+table td {
+  padding: 1rem;
 }
 .carrito img {
   width: 5rem;

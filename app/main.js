@@ -183,7 +183,7 @@ function agregarCarrito() {
     imagenTabla.classList.add('imgContainer');
 
     tituloTabla.textContent = element.nombre;
-    precioTabla.textContent = element.precio;
+    precioTabla.textContent = `$${element.precio}`;
     imagenTabla.append(imagen);
     imagen.src = element.imagen;
     contenedorCarrito.append(imagenTabla);
