@@ -8,9 +8,6 @@ const vaciar = document.querySelector('.vaciar')
 const select = document.querySelector('#select');
 const options = document.querySelectorAll('option');
 
-// Productos del carrito
-let productos = [];
-
 // Mangas
 let mangas = [
   { nombre: 'Berserk', precio: 640, imagen: './img/bersek.webp' },
@@ -31,17 +28,18 @@ let mangas = [
 ]
 
 class ProductosCarrito {
-  constructor(nombre, precio, imagen) {
+  constructor(nombre, precio, imagen, cantidad = 1) {
     this.nombre = nombre,
       this.precio = precio,
       this.imagen = imagen,
+      this.cantidad = cantidad,
       this.id = Date.now()
   }
 }
 
 // EVENTOS
 document.addEventListener('DOMContentLoaded', () => {
-  productos = JSON.parse(localStorage.getItem('carrito')) || [];
+  objetos = JSON.parse(localStorage.getItem('carrito')) || [];
   escribirHTML();
   agregarCarrito();
 });
@@ -72,6 +70,7 @@ input.addEventListener('input', () => {
   }
 })
 
+// FILTRAR
 select.addEventListener('change', () => {
   if (select.value == 'todos') {
     cont.textContent = '';
@@ -79,12 +78,12 @@ select.addEventListener('change', () => {
   } else if (select.value == 'menor') {
     cont.textContent = '';
     let mangasFiltrados = [...mangas];
-    mangasFiltrados.sort((a,b) => a.precio - b.precio);
+    mangasFiltrados.sort((a, b) => a.precio - b.precio);
     mangasFiltrados.forEach(element => hacerHTML(element))
   } else if (select.value == 'mayor') {
     cont.textContent = '';
     let mangasFiltrados = [...mangas];
-    mangasFiltrados.sort((a,b) => b.precio - a.precio);
+    mangasFiltrados.sort((a, b) => b.precio - a.precio);
     mangasFiltrados.forEach(element => hacerHTML(element))
   }
 })
@@ -94,6 +93,8 @@ function escribirHTML() {
   cont.textContent = '';
   mangas.forEach(element => hacerHTML(element))
 }
+let objetos = {};
+let elemento;
 // Crear el HTML
 function hacerHTML(element) {
   const div = document.createElement('div');
@@ -124,8 +125,17 @@ function hacerHTML(element) {
 
 
   btn.onclick = () => {
-    let elemento = new ProductosCarrito(element.nombre, element.precio, element.imagen)
-    productos.push(elemento);
+    elemento = new ProductosCarrito(element.nombre, element.precio, element.imagen);
+
+    if (objetos.hasOwnProperty(elemento.nombre)) {
+      elemento.cantidad = objetos[elemento.nombre].cantidad + 1;
+      console.log('Ya esta agregado')
+    }
+
+    objetos[elemento.nombre] = {...elemento}
+
+    cambiarBoton(elemento);
+
     agregarCarrito();
   }
 
@@ -133,72 +143,134 @@ function hacerHTML(element) {
 
 }
 
+// Cambiar boton al agregar
+function cambiarBoton(elemento) {
+  if (objetos.hasOwnProperty(elemento.nombre)) {
+    console.log('Ya esta agregado')
+    // btn.classList.add('agregado')
+  } else {
+    console.log('Ya no')
+    // btn.classList.remove('agregado')
+  }
+}
+
 // Agregar al carrito
 function agregarCarrito() {
   const contador = document.querySelector('.contadorTexto');
-  contador.textContent = 0;
+  const p = document.createElement('p');
+  let numero = 0;
   carritoBody.textContent = '';
 
-  if (productos != '') {
+  if (objetos != '') {
+    carritoTitle.classList.remove('cargados');
     carritoTitle.classList.add('cargado');
-    for (producto in productos) {
-      contador.textContent++
+    setTimeout(() => {
+      carritoTitle.classList.remove('cargado');
+      carritoTitle.classList.add('cargados');
+    }, 1500)
+    for (objeto in objetos) {
+      numero = 0;
+      let objetosContador= Object.values(objetos);
+      objetosContador.forEach(elementos => {
+        numero+= elementos.cantidad;
+      })
     }
   } else {
     carritoTitle.classList.remove('cargado');
-    carritoBody.textContent = 'Carrito vacío...'
+    carritoBody.textContent = 'Carrito vacío...';
   }
+  contador.textContent = '';
+  p.textContent = numero;
+  contador.append(p);
   contadorCont.textContent = ''
   contadorCont.append(contador);
 
+  for (objeto in objetos){
+    carritoBody.textContent = '';
+    let objetosMostrados = Object.values(objetos);
 
-  productos.forEach(element => {
-    let id = element.id;
-    // const container = document.createElement('div');
-    // const nombre = document.createElement('p');
-    // nombre.textContent = element.nombre;
-    // const img = document.createElement('img');
-    // img.src = element.imagen;
-    // const btn = document.createElement('p');
-    // btn.textContent = 'X';
-    // btn.classList.add('btn');
-    // const precio = document.createElement('p');
-    // precio.textContent = `$${element.precio}`;
+    objetosMostrados.forEach(element => {
+  
+      const contenedorCarrito = document.createElement('tr');
+      const imagenTabla = document.createElement('td');
+      const imagen = document.createElement('img');
+      const tituloTabla = document.createElement('td');
+      const precioTabla = document.createElement('td');
+      const cantidadTablaCont = document.createElement('td');
+      const cantidadTabla = document.createElement('p');
+      const btnCont = document.createElement('td');
+      const btn = document.createElement('p');
+      btn.textContent = 'X';
+      btn.classList.add('btn');
+      btnCont.append(btn);
+      imagenTabla.classList.add('imgContainer');
+      cantidadTablaCont.classList.add('cantidadTablaCont')
+  
+      tituloTabla.textContent = element.nombre;
+      precioTabla.textContent = `$${element.precio}`;
+      cantidadTabla.textContent = element.cantidad;
+      cantidadTablaCont.append(cantidadTabla);
+      imagenTabla.append(imagen);
+      imagen.src = element.imagen;
+      contenedorCarrito.append(imagenTabla);
+      contenedorCarrito.append(tituloTabla);
+      contenedorCarrito.append(precioTabla);
+      contenedorCarrito.append(cantidadTablaCont);
+      contenedorCarrito.append(btnCont);
+  
+      carritoBody.append(contenedorCarrito);
+      btn.onclick = () => {
+        eliminarCarrito(element)
+        
+        agregarCarrito();
+      }
+      
+      if (element.cantidad >= 1) {
+        const btnContSR = document.createElement('div')
+        const sumar = document.createElement('button');
+        const restar = document.createElement('button');
+        sumar.classList.add('sumar');
+        restar.classList.add('restar');
+        btnContSR.classList.add('botonCont')
+        sumar.textContent = '+';
+        restar.textContent = '-';
+        btnContSR.append(sumar);
+        btnContSR.append(cantidadTabla)
+        btnContSR.append(restar);
+        cantidadTablaCont.append(btnContSR);
 
-    // container.append(img);
-    // container.append(nombre);
-    // container.append(precio);
-    // container.append(btn);
+        sumar.addEventListener('click', () => {
+          element.cantidad++;
+          agregarCarrito();
+        })
+        restar.addEventListener('click', () => {
+          element.cantidad--;
+          if (element.cantidad <= 0) {
+            delete objetos[element.nombre];
+          }
+          cambiarBoton(elemento);
+          agregarCarrito();
+        })
 
-    // carrito.append(container);
+        let monto = element.cantidad * element.precio;
+        precioTabla.textContent = monto;
+      }
+    })
 
-    const contenedorCarrito = document.createElement('tr');
-    const imagenTabla = document.createElement('td');
-    const imagen = document.createElement('img');
-    const tituloTabla = document.createElement('td');
-    const precioTabla = document.createElement('td');
-    const btn = document.createElement('td');
-    btn.textContent = 'X';
-    btn.classList.add('btn');
-    imagenTabla.classList.add('imgContainer');
-
-    tituloTabla.textContent = element.nombre;
-    precioTabla.textContent = `$${element.precio}`;
-    imagenTabla.append(imagen);
-    imagen.src = element.imagen;
-    contenedorCarrito.append(imagenTabla);
-    contenedorCarrito.append(tituloTabla);
-    contenedorCarrito.append(precioTabla);
-    contenedorCarrito.append(btn);
-
-    carritoBody.append(contenedorCarrito);
-    btn.onclick = () => {
-      productos = productos.filter(elements => elements.id !== id);
-      agregarCarrito();
-    }
-  })
-  localStorage.setItem('carrito', JSON.stringify(productos));
+  }
+  localStorage.setItem('carrito', JSON.stringify(objetos));
   sumarPrecio();
+}
+
+// Eliminar producto del carrito
+function eliminarCarrito(element) {
+  if (objetos.hasOwnProperty(objeto)) {
+    element.cantidad = 0;
+  }
+
+  if (element.cantidad <= 0) {
+    delete objetos[element.nombre];
+  }
 }
 
 // Sumar el monto final
@@ -207,8 +279,12 @@ function sumarPrecio() {
   const p = document.createElement('p');
   let monto = 0;
   montoFinal.textContent = '';
-  for (let i = 0; i < productos.length; i++) {
-    monto += productos[i].precio;
+  for (objeto in objetos) {
+    monto = 0;
+    let objetosMonto = Object.values(objetos);
+    objetosMonto.forEach(elements => {
+      monto+= elements.precio*elements.cantidad;
+    })
   }
 
   p.textContent = `Total: $${monto}`;
@@ -218,6 +294,6 @@ function sumarPrecio() {
 
 // Vaciar carrito
 vaciar.onclick = () => {
-  productos = [];
+  objetos = {};
   agregarCarrito();
 }

@@ -47,6 +47,10 @@ button, .carritoImg, .btn {
   background: #666;
   transition: background .3s;
 }
+.cargados {
+  background: transparent;
+  transition: background .3s;
+}
 /* ----------Fin Globales---------- */
 
 /* ----------Inicio Header---------- */
@@ -122,6 +126,8 @@ table td {
 }
 .carrito img {
   width: 5rem;
+  height: 3rem;
+  object-fit: cover;
 }
 .carrito p {
   color: #fff;
@@ -142,6 +148,18 @@ table td {
 .ocultar {
   display: none;
 }
+.sumar, .restar {
+  padding: .2rem;
+  background-color: #fff9;
+  border: none;
+  width: 1.5rem;
+  border-radius: .2rem;
+}
+.botonCont {
+  display: flex;
+  gap: .5rem;
+}
+.cantidadTablaCont
 /* ----------Fin Carrito---------- */
 
 
