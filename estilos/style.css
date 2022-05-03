@@ -267,3 +267,20 @@ footer {
     height: 8rem;
   }
 }
+@media all and (max-width: 485px) {
+  table td {
+    padding: .3rem;
+  }
+}
+@media all and (max-width: 350px) {
+  table td {
+    padding: .1rem;
+  }
+  .carrito img {
+    width: 3rem;
+  }
+  .btn {
+    width: .5rem;
+    height: .5rem;
+  }
+}
