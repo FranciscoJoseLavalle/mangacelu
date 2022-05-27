@@ -202,7 +202,7 @@ select {
   /* border-radius: 50%; */
 }
 .contDiv {
-  border: .1rem solid #666;
+  /* border: .1rem solid #666; */
   display: flex;
   width: 15rem;
   flex-direction: column;
